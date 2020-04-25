@@ -1,0 +1,28 @@
+{
+    "name": "aal-lang",
+    "displayName": "AAL Lang",
+    "description": "syntax highlight for aal lang",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.44.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "aal",
+            "aliases": ["AAL", "aal"],
+            "extensions": [".aal"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "aal",
+            "scopeName": "source.aal",
+            "path": "./syntaxes/aal.tmLanguage.json",
+            "embeddedLanguages": {
+                "meta.embedded.block.python": "python"
+              }
+        }]
+    }
+}

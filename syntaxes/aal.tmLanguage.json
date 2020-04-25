@@ -1,0 +1,63 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "AAL",
+	"patterns": [
+		{
+			"include": "#strings"
+		},
+		{
+			"contentName":"variable.language",
+			"begin": "language",
+			"end": "{",
+			"patterns": [
+				{ "include" : "#strings" }
+			]
+		},
+		{
+			"name":"comment",
+			"match": "^\\s+#.**"
+		},
+		{
+			"include": "#language_blocks"
+		},	
+		{
+			"include": "#guard"
+		},
+		{
+			"include": "#body"
+		},
+		{
+			"include": "#adapter"
+		}
+	],
+	"repository": {
+		"strings": {
+			"name": "string.quoted.double.aal",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.aal",
+					"match": "\\\\."
+				}
+			]
+		},
+		"language_blocks":{
+			"name":"entity.name.function",
+			"match": "aal|(^\\s+initial_state)|(^\\s+input )|(^\\s+ouput )|(^\\s+tag )|(^\\s+language)"
+		},
+		"guard":{
+			"name":"entity.name.function",
+			"match": "^\\s+guard\\(\\)"
+		},
+		"body":{
+			"name":"entity.name.function",
+			"match": "^\\s+body\\(\\)"
+		},
+		"adapter":{
+			"name":"entity.name.function",
+			"match": "^\\s+adapter\\(\\)|(^\\s+adapter_init)|(^\\s+adapter_exit)"
+		}
+	},
+	"scopeName": "source.aal"
+}
