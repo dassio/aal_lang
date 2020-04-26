@@ -6,16 +6,11 @@
 			"include": "#strings"
 		},
 		{
-			"contentName":"variable.language",
-			"begin": "language",
-			"end": "{",
-			"patterns": [
-				{ "include" : "#strings" }
-			]
+			"include": "#language-set"
 		},
 		{
 			"name":"comment",
-			"match": "^\\s+#.**"
+			"match": "^\\s*#.**"
 		},
 		{
 			"include": "#language_blocks"
@@ -44,7 +39,7 @@
 		},
 		"language_blocks":{
 			"name":"entity.name.function",
-			"match": "aal|(^\\s+initial_state)|(^\\s+input )|(^\\s+ouput )|(^\\s+tag )|(^\\s+language)"
+			"match": "\\s*(aal|(input )|(output )|(tag ))"
 		},
 		"guard":{
 			"name":"entity.name.function",
@@ -55,8 +50,35 @@
 			"match": "^\\s+body\\(\\)"
 		},
 		"adapter":{
-			"name":"entity.name.function",
-			"match": "^\\s+adapter\\(\\)|(^\\s+adapter_init)|(^\\s+adapter_exit)"
+			"begin" : "(^\\s*)(adapter\\(\\)|adapter_init|adapter_exit|initial_state|variables)\\s*\\{",
+			"beginCaptures": {
+				"2" : { 
+					"name":"entity.name.function"
+				}
+			},
+			"end":"}",
+			"patterns": [
+				{
+					"include": "source.python"
+				}
+			],
+			"contentName":"meta.embedded.block.python"
+		},
+		"language-set":{
+				"contentName":"meta.embedded.block.python",
+				"begin": "^\\s*(language)\\s+\"(.*)\"\\s*\\{",
+				"beginCaptures": {
+					"1" : { 
+						"name" : "entity.name.function"
+					},
+					"2":{
+						"name": "variable.language"
+					}
+				},
+				"end": "}",
+				"patterns": [
+					{ "include" : "source.python" }
+				]
 		}
 	},
 	"scopeName": "source.aal"
